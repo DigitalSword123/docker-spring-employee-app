@@ -20,5 +20,12 @@ CMD ["java","-jar","employee-jdbc-0.0.1-SNAPSHOT.jar"]
 # this command will run multiple containers
 # docker-compose up
 
-#docker exec -ti container_id bash
+#docker exec -ti mysql_container_id bash
+# mysqlsh
+# \connect todos-user@localhost:3306
+# \sql
+# use todos
+# select * from todo;
+# \quit
+
 #curl --header "Content-Type: application/json"   --request POST   --data '{"empId":"232938","empName":"Shroff"}'   http://192.168.99.102:8080/insertemployee
