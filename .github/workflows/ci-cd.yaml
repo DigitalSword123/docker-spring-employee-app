@@ -107,7 +107,7 @@ jobs:
       - name: create a new ECS cluster and service
         id: build-cluster
         run: |
-          aws ecs create-cluster --cluster-name $ECS_CLUSTER
+          # aws ecs create-cluster --cluster-name $ECS_CLUSTER
           aws ecs list-task-definitions
           aws ecs create-service --cluster $ECS_CLUSTER --service-name $ECS_SERVICE --task-definition $ECS_TASK_NAME:1 --desired-count 1 --launch-type "FARGATE" --network-configuration "awsvpcConfiguration={subnets=[subnet-0b5c3b2362b48bcf2],securityGroups=[sg-0e675b3cfb27df138],assignPublicIp=ENABLED}"
           # aws ecs create-service --cluster fargate-spring-cluster --service-name fargate-spring-service
