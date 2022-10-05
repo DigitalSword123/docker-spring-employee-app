@@ -1,0 +1,30 @@
+{
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "containerDefinitions": [{
+        "name": "spring_employee_data_container",
+        "image": "877760304415.dkr.ecr.ap-south-1.amazonaws.com/spring-boot-employee-app:latest",
+        "memory": 512,
+        "cpu": 256,
+        "essential": true,
+        "portMappings": [{
+            "containerPort": 80,
+            "protocol": "tcp"
+        }],
+        "logConfiguration": {
+            "logDriver": "awslogs",
+            "options": {
+                "awslogs-group": "awslogs-springboot-ecs",
+                "awslogs-region": "ap-south-1",
+                "awslogs-stream-prefix": "ecs"
+            }
+        }
+    }],
+    "volumes": [],
+    "networkMode": "awsvpc",
+    "placementConstraints": [],
+    "family": "nginx",
+    "memory": "512",
+    "cpu": "256"
+}
