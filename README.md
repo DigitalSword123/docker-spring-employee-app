@@ -15,3 +15,5 @@ https://cloudaffaire.com/how-to-create-ecs-task-definition-using-aws-cli/
 
 sha256:34bbb63bbfbab61c0fd4367ca9d1f1403283d962d7ea87a1540f8e9e0e902f86
 
+// https://github.com/awslabs/aws-cloudformation-templates/tree/master/aws/services/ECS
+// https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_execution_IAM_role.html

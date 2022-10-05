@@ -20,5 +20,5 @@
     "family": "springBoot",
     "memory": "512",
     "cpu": "256",
-    "task_role_arn": ""
+    "execution_role_arn": "arn:aws:iam::877760304415:role/ecsTaskExecutionRole"
 }
