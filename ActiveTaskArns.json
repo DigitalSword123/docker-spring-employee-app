@@ -1,0 +1,1 @@
+{ "taskDefinitionArns": [ "arn:aws:ecs:ap-south-1:877760304415:task-definition/springBoot:2" ] }
