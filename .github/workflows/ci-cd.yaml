@@ -50,7 +50,7 @@ jobs:
           ls -al
 
       - name: Upload jar file as an artifact
-        uses: actions/actions/upload-artifact@v1
+        uses: actions/upload-artifact@v1
         with:
           name: employee-jdbc.jar
           path: target/employee-*.jar
