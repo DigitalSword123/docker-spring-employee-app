@@ -57,6 +57,7 @@ jobs:
 
   deploy:
     name: Deploy
+    needs: maven-build
     runs-on: ubuntu-latest
     environment: production
 
