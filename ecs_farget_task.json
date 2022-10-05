@@ -11,7 +11,15 @@
         "portMappings": [{
             "containerPort": 80,
             "protocol": "tcp"
-        }]
+        }],
+        "logConfiguration": {
+            "logDriver": "awslogs",
+            "options": {
+                "awslogs-group": "/ecs/fargate-task-definition",
+                "awslogs-region": "us-east-1",
+                "awslogs-stream-prefix": "ecs"
+            }
+        }
 
     }],
     "volumes": [],
@@ -20,5 +28,5 @@
     "family": "springBoot",
     "memory": "512",
     "cpu": "256",
-    "executionrolearn": "arn:aws:iam::877760304415:role/ecsTaskExecutionRole"
+    "executionRoleArn": "arn:aws:iam::877760304415:role/ecsTaskExecutionRole"
 }
