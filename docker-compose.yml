@@ -12,7 +12,7 @@ services:
  
   mysqldb:
     image: mysql:8
-    # 
+    # if networks not defined then default network will be created by docker which is "folder_name_default"
     # networks:
     #   - employee-mysql
     environment:

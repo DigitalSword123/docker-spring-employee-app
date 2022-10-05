@@ -19,4 +19,4 @@ CMD ["java","-jar","employee-jdbc-0.0.1-SNAPSHOT.jar"]
 # docker-compose up
 
 #docker exec -ti container_id bash
-#curl --header "Content-Type: application/json"   --request POST   --data '{"empId":"2308","empName":"JACK"}'   http://192.168.99.102:8080/insertemployee
+#curl --header "Content-Type: application/json"   --request POST   --data '{"empId":"232938","empName":"Shroff"}'   http://192.168.99.102:8080/insertemployee
