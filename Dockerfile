@@ -12,7 +12,7 @@ CMD ["java","-jar","employee-jdbc-0.0.1-SNAPSHOT.jar"]
 
 #MySQL container
 #docker container run --name mysqldb --network employee-mysql -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=bootdb -d mysql:8
-#docker container exec -it ae bash
+#docker container exec -it ae bash 
 
 
 #docker image build -t employee-jdbc .
