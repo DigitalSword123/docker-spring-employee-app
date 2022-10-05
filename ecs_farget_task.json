@@ -11,20 +11,14 @@
         "portMappings": [{
             "containerPort": 80,
             "protocol": "tcp"
-        }],
-        "logConfiguration": {
-            "logDriver": "awslogs",
-            "options": {
-                "awslogs-group": "awslogs-springboot-ecs",
-                "awslogs-region": "ap-south-1",
-                "awslogs-stream-prefix": "ecs"
-            }
-        }
+        }]
+
     }],
     "volumes": [],
     "networkMode": "awsvpc",
     "placementConstraints": [],
-    "family": "nginx",
+    "family": "springBoot",
     "memory": "512",
-    "cpu": "256"
+    "cpu": "256",
+    "task_role_arn": ""
 }
