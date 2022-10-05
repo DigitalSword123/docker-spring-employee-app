@@ -43,7 +43,11 @@ jobs:
           java-version: '8'
 
       - name: Build with Maven
-        run: mvn clean install
+        run: |
+          mvn clean install
+          ls -al
+          cd target
+          ls -al
 
       - name: Upload jar file as an artifact
         uses: actions/upload-artifact@v1
