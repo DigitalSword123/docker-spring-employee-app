@@ -92,7 +92,7 @@ jobs:
           # be deployed to ECS.
           echo "printing all files"
           ls -al
-          cp employee-jdbc-jar/*.jar employee-jdbc-0.0.1-SNAPSHOT.jar
+          cp target-artifact/*.jar employee-jdbc-0.0.1-SNAPSHOT.jar
           echo "printing image_tag"
           echo $IMAGE_TAG
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
