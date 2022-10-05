@@ -20,7 +20,7 @@ env:
   AWS_REGION: ap-south-1  
   ECR_LOGIN: 877760304415.dkr.ecr.ap-south-1.amazonaws.com                 # set this to your preferred AWS region, e.g. us-west-1
   ECR_REPOSITORY: spring-boot-employee-app           # set this to your Amazon ECR repository name
-  ECS_SERVICE: spring_employee_data_service                 # set this to your Amazon ECS service name
+  ECS_SERVICE: fargate-spring-service               # set this to your Amazon ECS service name
   ECS_CLUSTER: springEcsCluster              # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION: ecs_farget_task.json      # set this to the path to your Amazon ECS task definition
                                                # file, e.g. .aws/task-definition.json
@@ -103,6 +103,17 @@ jobs:
           task-definition: ${{ env.ECS_TASK_DEFINITION }}
           container-name: ${{ env.CONTAINER_NAME }}
           image: ${{ steps.build-image.outputs.image }}
+
+      - name: create a new ECS cluster and service
+        id: build-cluster
+        run: |
+          aws ecs create-cluster --cluster-name fargate-spring-cluster
+          aws ecs list-task-definitions
+          # aws ecs create-service --cluster fargate-spring-cluster --service-name fargate-spring-service --task-definition springBoot:1 --desired-count 1 --launch-type "FARGATE" --network-configuration "awsvpcConfiguration={subnets=[subnet-0b5c3b2362b48bcf2],securityGroups=[sg-0e675b3cfb27df138],assignPublicIp=ENABLED}"
+          aws ecs create-service --cluster fargate-spring-cluster --service-name fargate-spring-service
+          aws ecs list-services --cluster fargate-cluster
+          aws ecs describe-services --cluster fargate-cluster --services fargate-service
+          aws ecs list-tasks --cluster fargate-cluster --service fargate-service
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@de0132cf8cdedb79975c6d42b77eb7ea193cf28e
