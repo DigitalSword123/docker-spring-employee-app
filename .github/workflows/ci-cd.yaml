@@ -104,24 +104,25 @@ jobs:
           container-name: ${{ env.CONTAINER_NAME }}
           image: ${{ steps.build-image.outputs.image }}
 
-      # - name: create a new ECS cluster and service
-      #   id: build-cluster
-      #   run: |
-      #     # aws ecs create-cluster --cluster-name $ECS_CLUSTER
-      #     echo $(aws ecs list-task-definitions --family-prefix "$ECS_TASK_NAME" --status "Active") >> ActiveTaskArns.json
-      #     ActiveTaskArnName=`cat ActiveTaskArns.json | jq -r '.taskDefinitionArns[0]'`
-      #     IFS=', ' read -r -a arrayTask <<< "$ActiveTaskArnName"
-      #     echo "active task running" 
-      #     echo "${arrayTask[-1]}"
-      #     # aws ecs create-service --cluster $ECS_CLUSTER --service-name $ECS_SERVICE --task-definition "${arrayTask[-1]}" --desired-count 1 --launch-type "FARGATE" --network-configuration "awsvpcConfiguration={subnets=[subnet-0b5c3b2362b48bcf2],securityGroups=[sg-0e675b3cfb27df138],assignPublicIp=ENABLED}"
-      #     aws ecs list-services --cluster $ECS_CLUSTER
-      #     aws ecs describe-services --cluster $ECS_CLUSTER --services $ECS_SERVICE
-      #     aws ecs list-tasks --cluster $ECS_CLUSTER --service $ECS_SERVICE
+      - name: create a new ECS cluster and service
+        id: build-cluster
+        run: |
+          # aws ecs create-cluster --cluster-name $ECS_CLUSTER
+          echo $(aws ecs list-task-definitions --family-prefix "$ECS_TASK_NAME" --status "Active") >> ActiveTaskArns.json
+          ActiveTaskArnName=`cat ActiveTaskArns.json | jq -r '.taskDefinitionArns[0]'`
+          IFS=', ' read -r -a arrayTask <<< "$ActiveTaskArnName"
+          echo "active task running" 
+          echo "${arrayTask[-1]}"
+          # aws ecs create-service --cluster $ECS_CLUSTER --service-name $ECS_SERVICE --task-definition "${arrayTask[-1]}" --desired-count 1 --launch-type "FARGATE" --network-configuration "awsvpcConfiguration={subnets=[subnet-0b5c3b2362b48bcf2],securityGroups=[sg-0e675b3cfb27df138],assignPublicIp=ENABLED}"
+          aws ecs list-services --cluster $ECS_CLUSTER
+          aws ecs describe-services --cluster $ECS_CLUSTER --services $ECS_SERVICE
+          aws ecs list-tasks --cluster $ECS_CLUSTER --service $ECS_SERVICE
+          aws ecs run-task  --cluster $ECS_CLUSTER --task-definition "${arrayTask[-1]}" --launch-type="FARGATE" --network-configuration '{ "awsvpcConfiguration": { "assignPublicIp":"ENABLED, "securityGroups": ["sg-0e675b3cfb27df138"], "subnets": ["subnet-0b5c3b2362b48bcf2"]}}'
       
-      - name: Deploy Amazon ECS task definition
-        uses: aws-actions/amazon-ecs-deploy-task-definition@de0132cf8cdedb79975c6d42b77eb7ea193cf28e
-        with:
-          task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: ${{ env.ECS_SERVICE }}
-          cluster: ${{ env.ECS_CLUSTER }}
-          wait-for-service-stability: true
+      # - name: Deploy Amazon ECS task definition
+      #   uses: aws-actions/amazon-ecs-deploy-task-definition@de0132cf8cdedb79975c6d42b77eb7ea193cf28e
+      #   with:
+      #     task-definition: ${{ steps.task-def.outputs.task-definition }}
+      #     service: ${{ env.ECS_SERVICE }}
+      #     cluster: ${{ env.ECS_CLUSTER }}
+      #     wait-for-service-stability: true
