@@ -53,7 +53,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: employee-jdbc.jar
-          path: target/employee-*.jar
+          path: target/employee-jdbc-0.0.1-SNAPSHOT.jar
 
   deploy:
     name: Deploy
