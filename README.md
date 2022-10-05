@@ -22,3 +22,6 @@ https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_execution_IAM_r
 
 
 https://docs.aws.amazon.com/AmazonECS/latest/developerguide/example_task_definitions.html
+
+
+how to access farget task
