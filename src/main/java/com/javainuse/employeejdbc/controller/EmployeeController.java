@@ -17,6 +17,13 @@ public class EmployeeController {
 	@Autowired
 	EmployeeService empService;
 
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String home() {
+
+		return "welcome spring-boot aws app";
+
+	}
+
 	@RequestMapping(value = "/employees", method = RequestMethod.GET)
 	public List<Employee> getEmployees() {
 

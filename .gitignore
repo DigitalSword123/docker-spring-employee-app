@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+
+ec2-key/
