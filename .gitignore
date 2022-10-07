@@ -34,3 +34,5 @@ build/
 
 
 ec2-key/
+
+terraform.exe

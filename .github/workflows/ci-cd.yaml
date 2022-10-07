@@ -55,10 +55,30 @@ jobs:
         with:
           name: target-artifact
           path: target/employee-jdbc-0.0.1-SNAPSHOT.jar
+  
+  # terraform_deploy:
+  #   name: terraform-Deploy
+  #   needs: maven-build
+  #   runs-on: ubuntu-latest
+  #   environment: production
 
-  deploy:
-    name: Deploy
-    needs: maven-build
+  #   - name: Terraform deployement for dev_auto environment
+  #     uses: hashicorp/terraform-github-actions/init@v0.4.0
+  #     working-directory: /terraform_project
+  #   - run: |
+  #       terraform -v
+  #       bash ./github-actions-script/deploy_script.sh
+  #     env:
+  #       # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       TF_ACTION_WORKING_DIR: terraform_project
+  #       AWS_ACCESS_KEY_ID:  ${{ secrets.AWS_ACCESS_KEY }}
+  #       AWS_SECRET_ACCESS_KEY:  ${{ secrets.AWS_SECRET_KEY }}
+  #       DEPLOY_ENVIRONMENT: dev
+  #       TF_ACTION_WORKING_DIR: ./terraform_project
+
+  Docker_deploy:
+    name: docker-Deploy
+    needs: [maven-build, terraform_deploy]
     runs-on: ubuntu-latest
     environment: production
 
