@@ -78,7 +78,8 @@ jobs:
 
   Docker_deploy:
     name: docker-Deploy
-    needs: [maven-build, terraform_deploy]
+   # needs: [maven-build, terraform_deploy]
+    needs: maven-build
     runs-on: ubuntu-latest
     environment: production
 
