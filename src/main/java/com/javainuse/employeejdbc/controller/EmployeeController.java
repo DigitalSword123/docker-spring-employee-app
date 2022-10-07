@@ -20,7 +20,7 @@ public class EmployeeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home() {
 
-		return "welcome spring-boot aws app";
+		return "<h1>welcome spring-boot aws app</h1>";
 
 	}
 
