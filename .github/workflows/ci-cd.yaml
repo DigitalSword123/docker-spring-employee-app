@@ -25,7 +25,7 @@ env:
   ECS_TASK_DEFINITION: ecs_farget_task.json      # set this to the path to your Amazon ECS task definition
   ECS_TASK_NAME: springBoot                            # file, e.g. .aws/task-definition.json
   CONTAINER_NAME: spring_employee_data_container           # set this to the name of the container in the
-                                               # containerDefinitions section of your task definition
+  AWS_ASG_GROUP_NAME: my_ec2_autoscaling_group                               # containerDefinitions section of your task definition
 
 jobs:
   maven-build:
@@ -126,9 +126,11 @@ jobs:
           echo "IMAGE_TAG" 
           echo $IMAGE_TAG
 
-          instanceList=$(aws autoscaling describe-auto-scaling-groups --auto-scaling-group-name $AWS_AWG_GROUP_NAME)
-          echo $instanceList
-          instanceIds=($(aws autoscaling describe-auto-scaling-groups --auto-scaling-group-name $AWS_AWG_GROUP_NAME | jq '.AutoScalingGroups[0].Instances' | jq -c '.[]' | grep Healthy | jq '.InstanceId' | sed -e 's/"//g'))
+          # this will give list of healthy instance at that particular time under auto
+          # scaling group
+          instanceList=$(aws autoscaling describe-auto-scaling-groups --auto-scaling-group-name $AWS_ASG_GROUP_NAME)
+          echo $instanceList    #Healthy instance id
+          instanceIds=($(aws autoscaling describe-auto-scaling-groups --auto-scaling-group-name $AWS_ASG_GROUP_NAME | jq '.AutoScalingGroups[0].Instances' | jq -c '.[]' | grep Healthy | jq '.InstanceId' | sed -e 's/"//g'))
           echo "${instanceIds[0]} and ${instanceIds[1]}"
 
           dockerImageWithTag="$ECR_LOGIN/$ECR_REPOSITORY:$IMAGE_TAG"
@@ -144,7 +146,7 @@ jobs:
           echo $commands
 
           # this executes commands in instance of ec2
-          executeCmds=$(aws ssm send-command --document-name "AWS-RunSHellscript --targets "${instanceKeys}" --parameters "${commands}")
+          executeCmds=$(aws ssm send-command --document-name "AWS-RunSHellscript" --targets "${instanceKeys}" --parameters "${commands}")
           echo $executeCmds
 
           # aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin $ECR_LOGIN
